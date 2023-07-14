@@ -1,5 +1,15 @@
+* {
+  padding: 0;
+  margin: 0;
+  color: inherit;
+}
+
 .App {
   text-align: center;
+  font-family: "ShadowsIntoLightRegular";
+  font-size: 1.5rem;
+  background-color: rgba(230,230,230,0.1);
+  letter-spacing: .2rem;
 }
 
 .App-logo {
@@ -35,4 +45,19 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.font-face-gm {
+
+}
+
+.hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.spacing{
+  letter-spacing: .2rem;
 }
