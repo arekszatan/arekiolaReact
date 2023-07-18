@@ -2,66 +2,16 @@ import React, {useEffect, useState} from 'react';
 import TaskList from "./shoppingList/soppingItem";
 import {Button, Form} from "react-bootstrap";
 import axios from "axios";
+import VARIABLE from "../VARIABLE";
 
-const adress = "http://arektest.atthost24.pl";
-const test =[
-    {
-        id: 1,
-        product: "cos",
-        done : true
-    },
-    {
-        id: 1,
-        product: "cos",
-        done : true
-    },
-    {
-        id: 1,
-        product: "cos",
-        done : true
-    },
-    {
-        id: 1,
-        product: "cos",
-        done : true
-    },
-    {
-        id: 1,
-        product: "cos",
-        done : true
-    },
-    {
-        id: 1,
-        product: "cos",
-        done : true
-    },
-    {
-        id: 1,
-        product: "cos",
-        done : true
-    },
-    {
-        id: 1,
-        product: "cos",
-        done : true
-    },
-    {
-        id: 1,
-        product: "cos",
-        done : true
-    },
-    {
-        id: 1,
-        product: "cos",
-        done : true
-    },
-]
+const adress = VARIABLE.address
+
 export default function TaskApp() {
-    const [todos, setTodos] = useState(test);
-    const[actualText, setActualText] = useState("")
+    const [todos, setTodos] = useState([]);
+    const [actualText, setActualText] = useState("")
 
     const fetchUserData = () => {
-        axios.get(adress + "/api/")
+        axios.get(adress + "api/")
             .then(response => {
                 setTodos(response.data)
                 console.log(response.data)
@@ -79,7 +29,7 @@ export default function TaskApp() {
             product: actualText,
             done: true
             }
-        axios.post(adress + "/api/", data)
+        axios.post(adress + "api/", data)
             .then(res => {
                 console.log(res.data);
                 setTodos([
@@ -94,7 +44,7 @@ export default function TaskApp() {
     }
 
     function handleChangeTodo(nextTodo) {
-        todos.map(t => {
+        todos.forEach(t => {
         if (t.id === nextTodo.id) {
             const data =
                 {
@@ -103,7 +53,7 @@ export default function TaskApp() {
                     done: nextTodo.done
                 }
                 console.log(data)
-            axios.post(adress + "/api/update", data)
+            axios.post(adress + "api/update", data)
                 .then(res => {
                     console.log(res.data);
                     setTodos(res.data)
@@ -115,7 +65,7 @@ export default function TaskApp() {
     }
 
     function handleDeleteTodo(todoId) {
-        axios.post(adress + "/api/remove", {id : todoId})
+        axios.post(adress + "api/remove", {id : todoId})
             .then(res => {
                 setTodos(res.data)
                 console.log(res.data);

@@ -6,9 +6,9 @@ import uncheckIcon from './img/close_2976286.png'
 import { Image } from "react-bootstrap";
 
 export default function TaskList({
-     todos,
-     onChangeTodo,
-     onDeleteTodo
+    todos,
+    onChangeTodo,
+    onDeleteTodo
      }) {
     return (
         <div>
