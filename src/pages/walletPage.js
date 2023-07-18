@@ -8,29 +8,29 @@ import { faArrowCircleLeft, faArrowCircleRight } from '@fortawesome/free-solid-s
 
 const address = VARIABLE.address
 
-const test = [
-    {
-        id : 1,
-        female : true,
-        person : "Ola",
-        price : 20.43
-    }
-]
-const colorTextTest = [
-    {
-        id: 3,
-        name: "Arek",
-        textColor: "#000000"
-    },
-    {
-        id: 4,
-        name: "Ola",
-        textColor: "#000000"
-    }
-]
+// const test = [
+//     {
+//         id : 1,
+//         female : true,
+//         person : "Ola",
+//         price : 20.43
+//     }
+// ]
+// const colorTextTest = [
+//     {
+//         id: 3,
+//         name: "Arek",
+//         textColor: "#ffffff"
+//     },
+//     {
+//         id: 4,
+//         name: "Ola",
+//         textColor: "#ffffff"
+//     }
+// ]
 export default function WalletPage() {
-    const [walletList, setWalletList] = useState(test);
-    const [colorText, setColorText] = useState(colorTextTest)
+    const [walletList, setWalletList] = useState([]);
+    const [colorText, setColorText] = useState([])
     const [sumArek, setSumArek] = useState(0)
     const [sumOla, setSumOla] = useState(0)
     const [isEditing, setIsEditing] = useState(false)
@@ -56,8 +56,6 @@ export default function WalletPage() {
 
     useEffect(() => {
         fetchUserData()
-        // getSumMale()
-        // getSumFamale()
     }, [])
 
     useEffect(()=>{
@@ -140,7 +138,7 @@ export default function WalletPage() {
     }
 
     return (
-        <>
+        <div style={{color:"black"}}>
             {walletList.map(wallet => (
                 <WalletItem
                     colorText={colorText}
@@ -153,18 +151,18 @@ export default function WalletPage() {
             <div className="hr"></div>
             <Stack direction="horizontal" gap={2} className="">
                 <Stack direction="vertical">
-                    <div style={{color:colorText[0].textColor}}>
+                    <div style={{color: colorText.length !== 0 ? colorText[0].textColor : "black"}}>
                         Suma Arek:
                     </div>
-                    <div style={{color:colorText[0].textColor}}>
+                    <div style={{color: colorText.length !== 0 ? colorText[0].textColor : "black"}}>
                         {sumArek.toFixed(2)}
                     </div>
                 </Stack>
                 <Stack className="ms-auto">
-                    <div style={{color:colorText[1].textColor}}>
+                    <div style={{color: colorText.length !== 0 ? colorText[1].textColor : "black"}}>
                         Suma Ola:
                     </div>
-                    <div style={{color:colorText[1].textColor}}>
+                    <div style={{color: colorText.length !== 0 ? colorText[1].textColor : "black"}}>
                         {sumOla.toFixed(2)}
                     </div>
                 </Stack>
@@ -241,7 +239,7 @@ export default function WalletPage() {
                 :
                 ""
             }
-        </>
+        </div>
 
     );
 }
