@@ -8,6 +8,7 @@ import ShoppingListPage from "./pages/shoppingList";
 import WalletPage from "./pages/walletPage";
 import ShoppingOther from "./pages/shoppingOther";
 import Settings from "./pages/settings";
+import DreamsPage from "./pages/dreamsPage";
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
                     <Route path="/shopping" element={<ShoppingListPage />} />
                     <Route path="/shoppingOther" element={<ShoppingOther />} />
                     <Route path="/wallet" element={<WalletPage />} />
+                    <Route path="/dreams" element={<DreamsPage />} />
                     <Route path="/settings" element={<Settings />} />
                 </Routes>
             </BrowserRouter>

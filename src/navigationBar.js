@@ -42,6 +42,7 @@ function Navigation() {
                                     Reszta
                                 </NavDropdown.Item>
                             </NavDropdown>
+                            <Nav.Link href="/dreams" className="mx-3">Plany i marzenia</Nav.Link>
                             <Nav.Link href="/wallet" className="mx-3">Portfel</Nav.Link>
                             <Nav.Link href="/settings" className="mx-3">Ustawienia</Nav.Link>
                         </Nav>

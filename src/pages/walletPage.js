@@ -5,29 +5,10 @@ import axios from "axios";
 import {Alert, Button, Form, Stack} from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowCircleLeft, faArrowCircleRight } from '@fortawesome/free-solid-svg-icons'
+import LoadingSpinner from "../loadingSpinner";
 
 const address = VARIABLE.address
 
-// const test = [
-//     {
-//         id : 1,
-//         female : true,
-//         person : "Ola",
-//         price : 20.43
-//     }
-// ]
-// const colorTextTest = [
-//     {
-//         id: 3,
-//         name: "Arek",
-//         textColor: "#ffffff"
-//     },
-//     {
-//         id: 4,
-//         name: "Ola",
-//         textColor: "#ffffff"
-//     }
-// ]
 export default function WalletPage() {
     const [walletList, setWalletList] = useState([]);
     const [colorText, setColorText] = useState([])
@@ -35,8 +16,10 @@ export default function WalletPage() {
     const [sumOla, setSumOla] = useState(0)
     const [isEditing, setIsEditing] = useState(false)
     const [deleteAll, setDeleteAll] = useState(false)
-    const [actualPrize, setActualPrize] = useState("0")
+    const [actualPrize, setActualPrize] = useState("")
     const [actualChosen, setActualChosen] = useState("0")
+    const [isLoading, setIsLoading] = useState(false);
+    const [isLoadingAccount, setIsLoadingAccount] = useState(false);
 
     const fetchUserData = () => {
         axios.get(address + "api/setting/textColor")
@@ -88,9 +71,8 @@ export default function WalletPage() {
 
     }
     function addButton(){
-        setIsEditing(false)
         console.log(actualPrize, actualChosen)
-        if (actualPrize === "0")
+        if (actualPrize === "0" || actualPrize === "" || Number(actualPrize) < 0)
             return
         let famale = false
         let person = ""
@@ -110,31 +92,37 @@ export default function WalletPage() {
             person : person,
             price : Number(actualPrize)
         }
-
+        setIsLoading(true)
         axios.post(address + "api/wallet/list/add/", data)
             .then(res => {
                 console.log(res.data);
+                setIsLoading(false)
+                setIsEditing(false)
                 setWalletList([
                     ...walletList,
                     res.data])
             })
             .catch(error => {
+                setIsEditing(false)
                 console.log('There was an error!', error.response.data);
             });
-        setActualPrize("0")
+        setActualPrize("")
         setActualChosen("0")
     }
 
     function deleteAllPrize(){
+        setIsLoadingAccount(true)
         axios.post(address + "api/wallet/list/remove/")
             .then(res => {
+                setIsLoadingAccount(false)
+                setDeleteAll(false)
                 console.log(res.data);
                 setWalletList(res.data)
             })
             .catch(error => {
+                setDeleteAll(false)
                 console.log('There was an error!', error.response.data);
             });
-        setDeleteAll(false)
     }
 
     return (
@@ -174,7 +162,7 @@ export default function WalletPage() {
                         Arek <FontAwesomeIcon icon={faArrowCircleLeft} /> <FontAwesomeIcon icon={faArrowCircleLeft} /> Ola
                     </div>
                     <div>
-                        {(sumArek - sumOla).toFixed(2)}
+                        {((sumArek - sumOla)/2).toFixed(2)}
                     </div>
                 </div>
                 :
@@ -183,7 +171,7 @@ export default function WalletPage() {
                         Arek <FontAwesomeIcon icon={faArrowCircleRight} /> <FontAwesomeIcon icon={faArrowCircleRight} /> Ola
                     </div>
                     <div>
-                        {(sumOla - sumArek).toFixed(2)}
+                        {((sumOla - sumArek)/2).toFixed(2)}
                     </div>
                 </div>
                }
@@ -198,7 +186,7 @@ export default function WalletPage() {
                             <Form.Control className="m-auto" size="lg" type="number" placeholder="Wpisz kwotę..." value={actualPrize} onChange={(e) =>setActualPrize(e.target.value)} style={{maxWidth:"200px"}}/>
                         </Stack>
                         <Button variant="success" className="spacing m-2 " style={{minWidth:"150px", fontSize:"20px"}} onClick={()=>addButton()}>
-                            Dodaj
+                            {isLoading ? <LoadingSpinner/> : "Dodaj"}
                         </Button>
                     </div>
                 </div>
@@ -225,7 +213,7 @@ export default function WalletPage() {
                         <Stack direction="horizontal" gap={1}>
                             <div className="d-flex justify-content-end">
                                 <Button className="spacing" onClick={() => deleteAllPrize()} variant="outline-success">
-                                    Rozlicz
+                                    {isLoadingAccount ? <LoadingSpinner/> : "Rozlicz"}
                                 </Button>
                             </div>
                             <div className="d-flex ms-auto">
