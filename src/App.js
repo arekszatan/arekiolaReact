@@ -12,6 +12,9 @@ import DreamsPage from "./pages/dreamsPage";
 
 
 function App() {
+
+    console.log('env port: ', process.env.REACT_APP_PORT);
+
     return(
         <div className="App p-2">
             <Navigation/>

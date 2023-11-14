@@ -82,14 +82,13 @@
 }
 
 .dreamsDropDown {
-  position: relative;
+  position: static;
 }
 
 .dreamsDropDownSpanOff{
   position: absolute;
   transform: scaleY(0);
-  /*position: absolute;*/
-  /*top: -1000px;*/
+
 }
 
 @keyframes animationto {
@@ -99,6 +98,7 @@
 
 
 .dreamsDropDownSpanOn{
+  position: static;
   transform-origin: top;
   transition: transform 1s ease;
   animation-duration: 1s;

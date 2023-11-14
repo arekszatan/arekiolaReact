@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
-import axios from "axios";
+import React, {useState} from "react";
+// import axios from "axios";
 import VARIABLE from "../../VARIABLE";
-import {Button} from "react-bootstrap";
+// import {Button} from "react-bootstrap";
 
 const address = VARIABLE.address
 
@@ -19,7 +19,6 @@ export default function DreamItem({
             <div className={isClicked ? "dreamsDropDownSpanOn" : "dreamsDropDownSpanOff"}>
                 <span>{dreamsDropdown.text}</span>
             </div>
-
         </div>
     )
 }
